@@ -1,5 +1,4 @@
 var mongoose = require('mongoose');
-var bcrypt = require('bcrypt');
 
 var Schema = mongoose.Schema;
   
@@ -10,15 +9,5 @@ var userSchema = new Schema({
 });
 
 var User = mongoose.model('User', userSchema);
-
-var salt = bcrypt.genSaltSync(12);
-
-userSchema.methods.generateHash = function(password) {  
-  return bcrypt.hashSync(password, salt, null);
-};
-
-userSchema.methods.validPassword = function(password) {  
-  return bcrypt.compareSync(password, this.local.password);
-};
 
 module.exports = User;
