@@ -3,6 +3,7 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var bodyparser = require('body-parser');
 var mongoose = require('mongoose');
+var bcrypt = require('bcrypt');
 var port = process.env.PORT || 3000;
 
 app.get('/', function(req, res){
@@ -17,7 +18,6 @@ app.get('/signup', function(req, res){
 
 app.post('/signup', function(req, res){
 
-
   mongoose.connect('mongodb://testUser:testtest@ds163020.mlab.com:63020/chat_user');
 
   var Schema = mongoose.Schema;
@@ -30,10 +30,13 @@ app.post('/signup', function(req, res){
 
   var User = mongoose.model('User', userSchema);
 
+  var salt = bcrypt.genSaltSync(12);
+  var hash = bcrypt.hashSync(req.body.password, salt);
+
   var newUser = User({
     username : req.body.username,
     email : req.body.email,
-    password : req.body.password
+    password : hash
   });
 
   newUser.save(function(err){
