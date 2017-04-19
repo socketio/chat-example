@@ -5,21 +5,23 @@ var bodyparser = require('body-parser');
 var mongoose = require('mongoose');
 var bcrypt = require('bcrypt');
 var cookieParser = require('cookie-parser');
-var session = require('express-session');
+var session = require('express-session')({
+  secret: '@#@$MYSIGN#@$#$',
+  resave: false,
+  saveUninitialized: true
+}),sharedsession = require("express-socket.io-session");
+
 var port = process.env.PORT || 3000;
 
 var User = require('./models/User');
 
 app.use(bodyparser.urlencoded({ extended: false}));
-app.use(session({
- secret: '@#@$MYSIGN#@$#$',
- resave: false,
- saveUninitialized: true
-}));
+app.use(session);
+
+io.use(sharedsession(session));
 
 app.get('/', function(req, res){
   var username = req.session.username;
-  console.log(username);
   res.sendFile(__dirname+'/index.html', {username:username});
 });
 
@@ -75,8 +77,18 @@ app.post('/login', function(req, res){
 });
 
 io.on('connection', function(socket){
+  var username = socket.handshake.session.username;
+  /*
+
+  socket.on('set username', function(username){
+    socket.username = username;
+
+  });*/
+
   socket.on('chat message', function(msg){
-    io.emit('chat message', msg);
+    io.emit('chat message', {
+      username : username,
+      msg : msg});
   });
 });
 
