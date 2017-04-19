@@ -14,6 +14,7 @@ var session = require('express-session')({
 var port = process.env.PORT || 3000;
 
 var User = require('./models/User');
+var Message = require('./models/Message');
 
 app.use(bodyparser.urlencoded({ extended: false}));
 app.use(session);
@@ -25,7 +26,7 @@ app.get('/', function(req, res){
   res.sendFile(__dirname+'/index.html', {username:username});
 });
 
-mongoose.connect('mongodb://testUser:testtest@ds163020.mlab.com:63020/chat_user');
+
 mongoose.Promise = global.Promise;
 
 app.get('/signup', function(req, res){
@@ -33,6 +34,7 @@ app.get('/signup', function(req, res){
 });
 
 app.post('/signup', function(req, res){
+  mongoose.connect('mongodb://testUser:testtest@ds163020.mlab.com:63020/chat_user');
 
   var salt = bcrypt.genSaltSync(12);
   var hash = bcrypt.hashSync(req.body.password, salt);
@@ -48,6 +50,9 @@ app.post('/signup', function(req, res){
 
     console.log('person saves!');
   });
+
+  mongoose.disconnect();
+
   res.redirect('/login');
 });
 
@@ -56,21 +61,28 @@ app.get('/login', function(req, res){
 });
 
 app.post('/login', function(req, res){
+
   var username = req.body.username;
   var password = req.body.password;
-  
+
+  mongoose.connect('mongodb://testUser:testtest@ds163020.mlab.com:63020/chat_user');
+
   User.findOne({username:username}, function(err, obj){
 
     if (err) {
       throw err;
+      mongoose.disconnect();
       res.redirect('/login');
     }
 
     if (bcrypt.compareSync(password, obj.password)){
+      
+      mongoose.disconnect();
       req.session.username = username;
       res.redirect('/');
     }  else{
       console.log('fail!');
+      mongoose.disconnect();
       res.sendFile(__dirname+'/login.html');
     }
   });
@@ -78,18 +90,27 @@ app.post('/login', function(req, res){
 
 io.on('connection', function(socket){
   var username = socket.handshake.session.username;
-  /*
-
-  socket.on('set username', function(username){
-    socket.username = username;
-
-  });*/
-
+  
   socket.on('chat message', function(msg){
+    mongoose.connect('mongodb://msgAdmin:msg1234@ds163940.mlab.com:63940/chat_messages');
     io.emit('chat message', {
       username : username,
       msg : msg});
+    
+    var newmsg = Message({
+      username:username,
+      msg:msg
+    });
+
+    newmsg.save(function(err){
+    if (err) throw err;
+
+    console.log('Message saves!');
   });
+
+  mongoose.disconnect();
+  });
+
 });
 
 http.listen(port, function(){
