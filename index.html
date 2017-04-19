@@ -33,6 +33,16 @@
           $('#messages').append($('<li>').text(msg.username+" : "+msg.msg));
           window.scrollTo(0, document.body.scrollHeight);
         });
+
+        socket.on('preload',function(data){
+            var output = '';
+            output += '<li>';
+            output += data.username;
+            output += '</strong> : ';
+            output += data.msg;
+            output += '</div>';
+            $(output).prependTo('#messages');
+        });
       });
     </script>
   </body>

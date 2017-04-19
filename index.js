@@ -90,9 +90,19 @@ app.post('/login', function(req, res){
 
 io.on('connection', function(socket){
   var username = socket.handshake.session.username;
+
+  mongoose.connect('mongodb://msgAdmin:msg1234@ds163940.mlab.com:63940/chat_messages');
+
+  Message.find(function(err, result){
+    for(var i=0;i<result.length;i++){
+      var dbData = {username : result[i].username, msg : result[i].msg};
+      io.sockets.sockets[socket.id].emit('preload', dbData);
+    }
+  });
   
+  mongoose.disconnect();
+
   socket.on('chat message', function(msg){
-    mongoose.connect('mongodb://msgAdmin:msg1234@ds163940.mlab.com:63940/chat_messages');
     io.emit('chat message', {
       username : username,
       msg : msg});
@@ -104,7 +114,6 @@ io.on('connection', function(socket){
 
     newmsg.save(function(err){
     if (err) throw err;
-
     console.log('Message saves!');
   });
 
