@@ -23,7 +23,12 @@ io.use(sharedsession(session));
 
 app.get('/', function(req, res){
   var username = req.session.username;
-  res.sendFile(__dirname+'/index.html', {username:username});
+
+  if(username==undefined){
+    res.redirect('/login');
+  } else{
+    res.sendFile(__dirname+'/index.html');
+  }
 });
 
 
@@ -91,6 +96,7 @@ app.post('/login', function(req, res){
 io.on('connection', function(socket){
   var username = socket.handshake.session.username;
 
+  mongoose.disconnect();
   mongoose.connect('mongodb://msgAdmin:msg1234@ds163940.mlab.com:63940/chat_messages');
   Message.find(function(err, result){
     if(result.length < 25){
