@@ -1,39 +1,47 @@
 <!doctype html>
 <html>
-  <head>
+<head>
     <title>Socket.IO chat</title>
-    <style>
-      * { margin: 0; padding: 0; box-sizing: border-box; }
-      body { font: 13px Helvetica, Arial; }
-      form { background: #000; padding: 3px; position: fixed; bottom: 0; width: 100%; }
-      form input { border: 0; padding: 10px; width: 90%; margin-right: .5%; }
-      form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 10px; }
-      #messages { list-style-type: none; margin: 0; padding: 0; }
-      #messages li { padding: 5px 10px; }
-      #messages li:nth-child(odd) { background: #eee; }
-      #messages { margin-bottom: 40px }
-    </style>
-  </head>
-  <body>
-    <ul id="messages"></ul>
-    <form action="">
-      <input id="m" autocomplete="off" /><button>Send</button>
-    </form>
     <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
-    <script>
-      $(function () {
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<div class="container-fluid">
+    <h1 style="color: #3e3e3e">Welcome To Simple Chat room with NodeJS</h1>
+    <form id="chat_room">
+        <div class="form-group">
+            <label for="conversation_holder"> Conversations </label>
+            <textarea id="conversation_holder" class="form-control" rows="10" readonly="readonly"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="enter_message">Enter Message :</label>
+            <input type="text" id="enter_message" class="form-control">
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-success">Send <i class="glyphicon glyphicon-send"></i></button>
+        </div>
+    </form>
+</div>
+
+<script>
+    $(function () {
         var socket = io();
-        $('form').submit(function(){
-          socket.emit('chat message', $('#m').val());
-          $('#m').val('');
-          return false;
+        $('form#chat_room').submit(function () {
+            socket.emit('chat message', $('#enter_message').val());
+            $('#enter_message').val('');
+            return false;
         });
-        socket.on('chat message', function(msg){
-          $('#messages').append($('<li>').text(msg));
-          window.scrollTo(0, document.body.scrollHeight);
+        socket.on('chat message', function (msg) {
+            var old_chats = $('#conversation_holder').text();
+            $('#conversation_holder').text(old_chats + msg + "\n");
+            $('#conversation_holder').scrollTop($('#conversation_holder')[0].scrollHeight);
         });
-      });
-    </script>
-  </body>
+    });
+</script>
+
+
+</body>
 </html>
