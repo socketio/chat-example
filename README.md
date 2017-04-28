@@ -5,7 +5,7 @@ Simple chat room with NodeJS(socket.io) and bootstrap template.
 ![alt text](screenshots/chatroom.png "Simple chat room first page")
 
 <h1>how run project ?</h1>
-After installing NodeJS you need to change directory in terminal to project path then enter below commands
+After installing NodeJS you need to change terminal directory to project path then enter below commands : 
 
 
 
