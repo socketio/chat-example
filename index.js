@@ -9,14 +9,14 @@ app.get('/', function (req, res) {
 
 io.on('connection', function (socket) {
     // Display Log in Terminal
-    console.log(" A User connected !");
+    console.log(" A User connected ! ");
     // Chat Message Event
     socket.on('chat message', function (msg) {
         io.emit('chat message', msg);
     });
     // Disconnect Event
     socket.on('disconnect', function () {
-        console.log(" User disconnected !");
+        console.log(" User disconnected ! ");
     });
 });
 
