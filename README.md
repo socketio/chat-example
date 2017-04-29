@@ -1,13 +1,17 @@
-# chat-example
+# Simple Chat Room With NodeJS (socket.io)
 
-This is the source code for a very simple chat example used for
-the [Getting Started](http://socket.io/get-started/chat/) guide
-of the Socket.IO website.
+Simple chat room with NodeJS(socket.io) and bootstrap template.
 
-Please refer to it to learn how to run this application.
+![alt text](screenshots/chatroom.png "Simple chat room first page")
 
-You can also spin up a free Heroku dyno to test it out:
+<h1>how run project ?</h1>
+After installing NodeJS you need to change directory to project path in terminal then enter below commands : 
 
-[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy?template=https://github.com/socketio/chat-example)
 
-Besides, the application is deployed on [Now](https://zeit.co/now): https://socketio-chat-example.now.sh/
+
+```nodejs
+npm install
+node index.js
+```
+
+Contractions ! Now you can access to project from http://localhost:3000 from your browser.
