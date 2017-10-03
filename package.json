@@ -8,7 +8,7 @@
   },
   "scripts": {
     "lh": "open http://localhost:3000 & open http://localhost:3000",
-    "test": "NODE_ENV='test' mocha test",
+    "test": "mocha test",
     "start": "node index.js & npm run lh",
     "dist": "pkg . --targets node6-linux,node6-macos,node6-win --out-path ./bin/"
   },
