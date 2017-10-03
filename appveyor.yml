@@ -1,7 +1,5 @@
 version: 0.0.{build}
 image: Visual Studio 2017
-build:
-  verbosity: minimal
 
 # Test against the latest version of this Node.js version
 environment:
