@@ -1,6 +1,6 @@
 {
-  "name": "Socket-Chat-Example",
-  "description": "my first socket.io app",
+  "name": "Socket-Chat-Win",
+  "description": "Kishore Socket.io App",
   "website": "https://github.com/socketio/chat-example",
   "repository": "https://github.com/socketio/chat-example",
   "logo": "https://node-js-sample.herokuapp.com/node.svg",

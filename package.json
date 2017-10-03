@@ -7,6 +7,7 @@
     "socket.io": "^1.7.3"
   },
   "scripts": {
-    "start": "node index.js"
+    "lh" : "open http://localhost:3000 & open http://localhost:3000",
+    "start": "node index.js & npm run lh"
   }
 }
