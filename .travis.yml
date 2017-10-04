@@ -6,9 +6,6 @@ language: node_js
 node_js:
   - "7"
 
-cache:
- - node_modules
-
 install:
  - npm install
 
@@ -17,8 +14,6 @@ script:
  - npm run dist
 
 notifications:
-  slack: biobright:6j8QQyUUSW9mXJPSKPzGnZM4
-    on_success: always
-    on_failure: always
+  slack: biobright:FAfxVRfqf7r70Hw3P4pzfVIn
   email:
     - ranganath@biobright.org
