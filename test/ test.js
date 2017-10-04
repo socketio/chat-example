@@ -25,7 +25,7 @@ const exec = require('child_process').exec
 
 
 describe('Build binary with pkg', function(done) {
-  this.timeout(30000)
+  this.timeout(80000)
   before(function(done) {
     exec('npm run dist', (err, stdout, stderr) => {
       assert.equal(err, null, 'Binary build failed')
