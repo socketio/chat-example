@@ -62,13 +62,13 @@
     <DirectoryRef Id='StartupFolder'>
       <Component Id="AppShortcut" Guid="6D9777BD-0DC4-4F8C-89AB-17D7F120115C">
         <Shortcut Id="AppStartupShortcut"
-                  Name="DarwinSync Client Startup"
-                  Description="BioBright's DarwinSync Client"
-                  Target='[INSTALLDIR]darwinsync.exe'
+                  Name="chatApp"
+                  Description="Kishore's chatApp"
+                  Target='[INSTALLDIR]chatApp.exe'
                   WorkingDirectory="INSTALLDIR">
-                  <Icon Id="darwinsync.exe"  SourceFile="path\darwinsync.ico" />
+                  <Icon Id="chatApp.exe"  SourceFile="path\darwinsync.ico" />
         </Shortcut>
-        <RegistryKey Root='HKCU' Key='Software\BioBright\hotfolderStart' ForceCreateOnInstall='yes' ForceDeleteOnUninstall='yes'>
+        <RegistryKey Root='HKCU' Key='Software\BioBright\chatAppStart' ForceCreateOnInstall='yes' ForceDeleteOnUninstall='yes'>
           <RegistryValue Type='integer' Value='1' KeyPath='yes' />
         </RegistryKey>
       </Component>
@@ -78,13 +78,13 @@
     <DirectoryRef Id='DesktopFolder'>
       <Component Id="DeskShortcut" Guid="*">
         <Shortcut Id="DesktopShortcut"
-                  Name="DarwinSync Desktop"
-                  Description="BioBright's DarwinSync Client"
-                  Target='[INSTALLDIR]darwinsync.exe'
+                  Name="chatApp Desktop"
+                  Description="Kishore's chatApp Client"
+                  Target='[INSTALLDIR]chatApp.exe'
                   WorkingDirectory="INSTALLDIR">
-                  <Icon Id="darwin.exe"  SourceFile="path\darwinsync.ico" />
+                  <Icon Id="chatApp2.exe"  SourceFile="path\darwinsync.ico" />
         </Shortcut>
-        <RegistryKey Root='HKCU' Key='Software\BioBright\hotfolderDesk' ForceCreateOnInstall='yes' ForceDeleteOnUninstall='yes'>
+        <RegistryKey Root='HKCU' Key='Software\BioBright\chatAppDesk' ForceCreateOnInstall='yes' ForceDeleteOnUninstall='yes'>
           <RegistryValue Type='integer' Value='1' KeyPath='yes' />
         </RegistryKey>
       </Component>
@@ -94,13 +94,13 @@
     <DirectoryRef Id='StartMenuFolder'>
       <Component Id="StartMenuShortcut" Guid="*">
         <Shortcut Id="StartMenuShortcut"
-                  Name="DarwinSync Start"
-                  Description="BioBright's DarwinSync Client"
-                  Target='[INSTALLDIR]darwinsync.exe'
+                  Name="chatApp Start"
+                  Description="Kishore's ChatApp"
+                  Target='[INSTALLDIR]chatApp.exe'
                   WorkingDirectory="INSTALLDIR">
-                  <Icon Id="darwinsync1.exe"  SourceFile="path\darwinsync.ico" />
+                  <Icon Id="chatApp1.exe"  SourceFile="path\darwinsync.ico" />
         </Shortcut>
-        <RegistryKey Root='HKCU' Key='Software\BioBright\hotfolderProgram' ForceCreateOnInstall='yes' ForceDeleteOnUninstall='yes'>
+        <RegistryKey Root='HKCU' Key='Software\BioBright\chatAppProgram' ForceCreateOnInstall='yes' ForceDeleteOnUninstall='yes'>
           <RegistryValue Type='integer' Value='1' KeyPath='yes' />
         </RegistryKey>
       </Component>
@@ -126,8 +126,8 @@
 
 
     <!--All features to be displayed on the installer-->
-    <Feature Id='AppFeature' Title='DarwinSync v0.1.0 App' Description='BioBright DarwinSync' Display='expand' TypicalDefault="install" Level='1' ConfigurableDirectory='INSTALLDIR'>
-      <Feature Id='Application' Title='DarwinSync Client' Description='Client executable'>
+    <Feature Id='AppFeature' Title='chatApp v0.1.0' Description='Kishore ChatApp' Display='expand' TypicalDefault="install" Level='1' ConfigurableDirectory='INSTALLDIR'>
+      <Feature Id='Application' Title='chatApp Client' Description='Client executable'>
         <ComponentRef Id='MainExecutable' />
       </Feature>
     </Feature>
@@ -136,12 +136,11 @@
         <ComponentRef Id='Config' />
       </Feature>
     </Feature>-->
-    <Feature Id='ShortcutFeature' Title='DarwinSync v0.1.0 Shortcuts' Description='BioBright HotFolder System' Display='expand' TypicalDefault="install" Level='1'>
-      <Feature Id='Shortcuts' Title='DarwinSync Shortcuts' Description='Desktop and Startup shortcuts for DarwinSync'>
+    <Feature Id='ShortcutFeature' Title='chatApp v0.1.0 Shortcuts' Description='chatApp System' Display='expand' TypicalDefault="install" Level='1'>
+      <Feature Id='Shortcuts' Title='chatApp Shortcuts' Description='Desktop and Startup shortcuts for chatApp'>
         <ComponentRef Id='AppShortcut' />
         <ComponentRef Id='DeskShortcut' />
         <ComponentRef Id='StartMenuShortcut' />
-        <ComponentRef Id='DarwinSyncFld' />
       </Feature>
     </Feature>
 
