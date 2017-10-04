@@ -18,6 +18,7 @@ install:
   - ps: Install-Product node $env:nodejs_version $env:platform
   # install modules
   - npm install
+  - set path=c:\Program Files (x86)\WiX Toolset v3.11\bin;%path%
 
 # Post-install test scripts.
 test_script:
@@ -38,3 +39,7 @@ build: off
 artifacts:
 - path: bin
 - path: Wix\*.msi
+
+notifications:
+  - provider: Slack
+    incoming_webhook: https://hooks.slack.com/services/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
