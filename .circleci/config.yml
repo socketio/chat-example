@@ -33,7 +33,9 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
 
-      - run: npm run dist
+      - run:
+          - npm test
+          - npm run dist
       # run tests!
   test:
     docker:
