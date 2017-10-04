@@ -9,7 +9,7 @@ node_js:
 cache:
  - node_modules
 
-install: 
+install:
  - npm install
 
 script:
