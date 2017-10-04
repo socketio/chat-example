@@ -4,6 +4,7 @@
   "description": "my first socket.io app",
   "dependencies": {
     "express": "^4.15.2",
+    "npx": "^9.6.0",
     "socket.io": "^1.7.3"
   },
   "scripts": {
