@@ -28,6 +28,7 @@ test_script:
   - npm test
 
 after_test:
+  - SET
   - npm run dist
   - npm run wix
 
