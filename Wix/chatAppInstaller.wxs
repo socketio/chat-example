@@ -1,0 +1,162 @@
+<?xml version='1.0' encoding='windows-1252'?>
+<Wix xmlns='http://schemas.microsoft.com/wix/2006/wi'>
+  <Product Name='chatApp' Id='81E42954-5648-4B00-9EE1-70748715A78B' UpgradeCode='BB0CAC88-BE8F-4E7B-B64B-3D0AF251D320'
+    Language='1033' Codepage='1252' Version='0.0.1' Manufacturer='KishoreSundar'>
+
+    <Package Id='*' Keywords='Installer' Description="chatApp Installer v0.0.1"
+      Comments='chatApp is open source!' Manufacturer='Kishore Sundar'
+      InstallerVersion='200' Platform='x64' Languages='1033' Compressed='yes' SummaryCodepage='1252'/>
+
+    <Condition Message="You need to be an administrator to install this product.">
+      Privileged
+    </Condition>
+    <Media Id='1' Cabinet='Test.cab' EmbedCab='yes' />
+
+    <Directory Id='TARGETDIR' Name='SourceDir'>
+
+      <!--Setting directory path for main executable-->
+      <Directory Id='ProgramFiles64Folder' Name='PFiles'>
+        <Directory Id='INSTALLDIR' Name='BioBright' />
+      </Directory>
+
+      <!--Referencing the startup folder for installing shortcut-->
+      <Directory Id='StartupFolder' />
+      <Directory Id='DesktopFolder' />
+      <Directory Id='StartMenuFolder' />
+
+    </Directory>
+
+    <!--Installing main executable-->
+    <DirectoryRef Id='INSTALLDIR'>
+      <Component Id='MainExecutable' Guid='7A2060F3-7AE4-483F-8E2F-7B883896E093' Win64='yes'>
+        <File Id='chatAppEXE' Name='chatApp.exe' Source='..\bin\socket-chat-example-win.exe' KeyPath='yes' />
+        <Environment Id='PATH' Name='PATH' Value="[INSTALLDIR]" Permanent="no" Part="last" Action="set" System="yes" />
+      </Component>
+    </DirectoryRef>
+
+    <!--Installing config and setting environment variables
+    <DirectoryRef Id='CONFIGDIR'>
+      <Component Id='Config' Guid='3ED37E83-8F25-4CDB-B364-3E9800956F0D' Win64='yes'>
+        <File Id='ConfigFile' Name='default.json' Source='..\config\default.json' KeyPath='no' />
+        <Environment Id='CONF' Name='CONF' Value='[CONFIGDIR]' Permanent='no' Action='create' System='yes' />
+        <Environment Id='CONFUP' Name='CONF' Value='[CONFIGDIR]' Permanent='no' Part='all' Action='set' System='yes' />
+        <Environment Id='PATH_ENC' Name='PATH_ENC' Value='%CONF%tmp\enc' Permanent='no' Action='create' System='yes' />
+        <Environment Id='PATH_ENCUP' Name='PATH_ENC' Value='%CONF%tmp\enc' Permanent='no' Part='all' Action='set' System='yes' />
+        <Environment Id='LOGX' Name='LOGGING:logpath' Value='%CONF%log' Permanent='no' Action='create' System='yes' />
+        <Environment Id='LOGXUP' Name='LOGGING:logpath' Value='%CONF%log' Permanent='no' Part='all' Action='set' System='yes' />
+        <Environment Id='PATH_ASSOC' Name='PATH_ASSOCIATIONS' Value='[\[][\{]"path":"[PersonalFolder]\DarwinSync","users":[\[]"nate"[\]][\}][\]]' Permanent='no' Action='create' />
+        <Environment Id='PATH_ASSUP' Name='PATH_ASSOCIATIONS' Value='[\[][\{]"path":"[PersonalFolder]\DarwinSync","users":[\[]"nate"[\]][\}][\]]' Permanent='no' Part='all' Action='set' />
+        <Environment Id='PUBKEY' Name='FILEPATH_PUBKEY' Value='%CONF%pub.key' Permanent='no' Action='create' System='yes' />
+        <Environment Id='PUBKEYUP' Name='FILEPATH_PUBKEY' Value='%CONF%pub.key' Permanent='no' Part='all' Action='set' System='yes' />
+        <Environment Id='APPCONF' Name='HOTFOLDER_CONFIG' Value='%CONF%default.json' Permanent='no' Action='create' System='yes' />
+        <Environment Id='APPCONFUP' Name='HOTFOLDER_CONFIG' Value='%CONF%default.json' Permanent='no' Part='all' Action='set' System='yes' />
+        <RegistryKey Root='HKCU' Key='Software\BioBirght\hotfolderApp' ForceCreateOnInstall='yes' ForceDeleteOnUninstall='yes'>
+          <RegistryValue Type='string' Value='ConfigReg' KeyPath='yes' />
+        </RegistryKey>
+        <RemoveFile Id='ConfigRemove' Name='default.json' On='uninstall' />
+        <RemoveFolder Id='DirRemove' Directory='CONFIGDIR' On='uninstall' />
+      </Component>
+    </DirectoryRef>-->
+
+    <!--Installing startup shortcut for DarwinSync-->
+    <DirectoryRef Id='StartupFolder'>
+      <Component Id="AppShortcut" Guid="6D9777BD-0DC4-4F8C-89AB-17D7F120115C">
+        <Shortcut Id="AppStartupShortcut"
+                  Name="DarwinSync Client Startup"
+                  Description="BioBright's DarwinSync Client"
+                  Target='[INSTALLDIR]darwinsync.exe'
+                  WorkingDirectory="INSTALLDIR">
+                  <Icon Id="darwinsync.exe"  SourceFile="path\darwinsync.ico" />
+        </Shortcut>
+        <RegistryKey Root='HKCU' Key='Software\BioBright\hotfolderStart' ForceCreateOnInstall='yes' ForceDeleteOnUninstall='yes'>
+          <RegistryValue Type='integer' Value='1' KeyPath='yes' />
+        </RegistryKey>
+      </Component>
+    </DirectoryRef>
+
+    <!--Installing desktop shortcut for DarwinSync-->
+    <DirectoryRef Id='DesktopFolder'>
+      <Component Id="DeskShortcut" Guid="*">
+        <Shortcut Id="DesktopShortcut"
+                  Name="DarwinSync Desktop"
+                  Description="BioBright's DarwinSync Client"
+                  Target='[INSTALLDIR]darwinsync.exe'
+                  WorkingDirectory="INSTALLDIR">
+                  <Icon Id="darwin.exe"  SourceFile="path\darwinsync.ico" />
+        </Shortcut>
+        <RegistryKey Root='HKCU' Key='Software\BioBright\hotfolderDesk' ForceCreateOnInstall='yes' ForceDeleteOnUninstall='yes'>
+          <RegistryValue Type='integer' Value='1' KeyPath='yes' />
+        </RegistryKey>
+      </Component>
+    </DirectoryRef>
+
+    <!--Installing program menu shortcut for DarwinSync-->
+    <DirectoryRef Id='StartMenuFolder'>
+      <Component Id="StartMenuShortcut" Guid="*">
+        <Shortcut Id="StartMenuShortcut"
+                  Name="DarwinSync Start"
+                  Description="BioBright's DarwinSync Client"
+                  Target='[INSTALLDIR]darwinsync.exe'
+                  WorkingDirectory="INSTALLDIR">
+                  <Icon Id="darwinsync1.exe"  SourceFile="path\darwinsync.ico" />
+        </Shortcut>
+        <RegistryKey Root='HKCU' Key='Software\BioBright\hotfolderProgram' ForceCreateOnInstall='yes' ForceDeleteOnUninstall='yes'>
+          <RegistryValue Type='integer' Value='1' KeyPath='yes' />
+        </RegistryKey>
+      </Component>
+    </DirectoryRef>
+
+    <!--Creating a DarwinSync Folder in Documents and a shortcut to the folder in Desktop
+    <DirectoryRef Id='DarwinSyncFolder'>
+      <Component Id="DarwinSyncFld" Guid="C6A5BD36-9CF5-4BF1-BB1E-079CEF663A3D" Win64="yes">
+        <CreateFolder>
+          <Shortcut Id="DarwinSyncFolderShortcut"
+                    Directory="DesktopFolder"
+                    Name="DarwinSync Folder Shortcut">
+            <Icon Id="darwinsyncFolder"  SourceFile="path\DarwinSyncFolderIco.ico" />
+          </Shortcut>
+        </CreateFolder>
+        <RemoveFile Id="DelShortcutFiles" Name="*.*" On="uninstall" />
+        <RemoveFolder Id="DelShortcutFolder" On="uninstall" />
+        <RegistryKey Root='HKCU' Key='Software\BioBright\DarwinFolder' ForceCreateOnInstall='yes' ForceDeleteOnUninstall='yes'>
+          <RegistryValue Type='integer' Value='1' KeyPath='yes' />
+        </RegistryKey>
+      </Component>
+    </DirectoryRef>-->
+
+
+    <!--All features to be displayed on the installer-->
+    <Feature Id='AppFeature' Title='DarwinSync v0.1.0 App' Description='BioBright DarwinSync' Display='expand' TypicalDefault="install" Level='1' ConfigurableDirectory='INSTALLDIR'>
+      <Feature Id='Application' Title='DarwinSync Client' Description='Client executable'>
+        <ComponentRef Id='MainExecutable' />
+      </Feature>
+    </Feature>
+    <!--<Feature Id='ConfFeature' Title='DarwinSync v0.1.0 Config' Description='BioBright HotFolder System' Display='expand' TypicalDefault="install" Level='1' ConfigurableDirectory='CONFIGDIR'>
+      <Feature Id='Config' Title='DarwinSync Config' Description='Config files for DarwinSync'>
+        <ComponentRef Id='Config' />
+      </Feature>
+    </Feature>-->
+    <Feature Id='ShortcutFeature' Title='DarwinSync v0.1.0 Shortcuts' Description='BioBright HotFolder System' Display='expand' TypicalDefault="install" Level='1'>
+      <Feature Id='Shortcuts' Title='DarwinSync Shortcuts' Description='Desktop and Startup shortcuts for DarwinSync'>
+        <ComponentRef Id='AppShortcut' />
+        <ComponentRef Id='DeskShortcut' />
+        <ComponentRef Id='StartMenuShortcut' />
+        <ComponentRef Id='DarwinSyncFld' />
+      </Feature>
+    </Feature>
+
+    <!--UI Reference and Images-->
+    <UIRef Id="WixUI_Mondo" />
+    <UIRef Id="WixUI_ErrorProgressText" />
+    <WixVariable Id="WixUILicenseRtf" Value="path\license.rtf" />
+    <WixVariable Id="WixUIDialogBmp" Value="path\WixUIDialogBmp.bmp" />
+    <WixVariable Id="WixUIBannerBmp" Value="path\WixUIBannerBmp.bmp" />
+    <WixVariable Id="WixUIExclamationIco" Value="path\WixUIInfoIco.ico" />
+    <WixVariable Id="WixUIInfoIco" Value="path\WixUIInfoIco.ico" />
+    <WixVariable Id="WixUINewIco" Value="path\WixUINewIco.ico" />
+    <WixVariable Id="WixUIUpIco" Value="path\WixUIUpIco.ico" />
+    <Icon Id="icon.ico" SourceFile="path\darwinsync.ico"/>
+    <Property Id="ARPPRODUCTICON" Value="icon.ico" />
+
+  </Product>
+</Wix>

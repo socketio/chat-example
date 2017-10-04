@@ -10,10 +10,11 @@
     "lh": "open http://localhost:3000 & open http://localhost:3000",
     "test": "mocha test",
     "start": "node index.js & npm run lh",
-    "dist": "pkg . --targets node6-linux,node6-macos,node6-win --out-path ./bin/"
+    "dist": "pkg . --targets node6-linux,node6-macos,node6-win --out-path ./bin/",
+    "wix": "cd Wix && candle.exe chatAppInstaller.wxs && light.exe -ext WixUIExtension chatAppInstaller.wixobj"
   },
   "bin": {
-    "hotfolder-client": "index.js"
+    "chat-example": "index.js"
   },
   "devDependencies": {
     "chai": "^4.1.2",
