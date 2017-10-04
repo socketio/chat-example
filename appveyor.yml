@@ -36,3 +36,4 @@ build: off
 
 artifacts:
 - path: bin
+- path: Wix\*.msi
