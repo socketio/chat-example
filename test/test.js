@@ -29,7 +29,6 @@ describe('Build binary with pkg', function(done) {
   before(function(done) {
     exec('npm run dist', (err, stdout, stderr) => {
       assert.equal(err, null, `Binary build failed: ${err}`)
-      assert.equal(stderr, '', `stderr exists from pkg: ${stderr}`)
       done()
     })
   })
