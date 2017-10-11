@@ -1,6 +1,8 @@
 version: 0.0.{build}
 image: Visual Studio 2017
 
+#only_commits:
+#  message: /build/
 # Test against the latest version of this Node.js version
 environment:
   nodejs_version: "6"
@@ -8,9 +10,9 @@ environment:
 platform:
   - x64
 
-cache:
-  - node_modules
-  - '%APPDATA%\npm-cache'
+#cache:
+#  - node_modules
+#  - '%APPDATA%\npm-cache'
 
 # Install scripts. (runs after repo cloning)
 install:

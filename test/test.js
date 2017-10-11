@@ -44,6 +44,14 @@ describe('Build binary with pkg', function(done) {
     })
   })
 })
+
+describe('Random test', function(done) {
+  it('to accomplish nothing', function(done) {
+    assert.equal(1 + 1, 2)
+    done()
+  })
+})
+
 describe('Build installer with wix', function(done) {
   this.timeout(60000)
   if (osPlatform == 'win32') {
@@ -63,8 +71,7 @@ describe('Build installer with wix', function(done) {
         done()
       })
     })
-  }
-  else {
+  } else {
     console.log(`Wix tests not applicable to ${osPlatform}`)
   }
 })
