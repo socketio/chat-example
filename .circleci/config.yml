@@ -15,7 +15,7 @@ jobs:
       - run: node --version
       - run: npm install
       - run: npm config set loglevel warn
-      - run: npm test
+      - run: npm config get loglevel & npm test
       - run: npm run dist
 
   test:
