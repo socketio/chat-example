@@ -11,11 +11,15 @@ jobs:
 
     steps:
       - checkout
-      - run: npm --version
-      - run: node --version
-      - run: npm install
-      - run: npm config set loglevel warn
-      - run: npm config get loglevel & npm test
+      - run:
+         command: |
+            echo "Start"
+            node --version
+            npm -v
+            npm install
+            npm config set loglevel warn
+            npm config get loglevel
+            npm test
       - run: npm run dist
 
   test:
@@ -23,10 +27,11 @@ jobs:
       - image: circleci/node:6
     steps:
       - checkout
-      - run: npm config set loglevel warn
       - run:
           name: Test
-          command: npm test
+          command: |
+            npm config set loglevel warn
+            npm test
 
 workflows:
   version: 2
