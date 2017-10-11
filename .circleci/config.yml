@@ -13,12 +13,11 @@ jobs:
       - checkout
       - run:
          command: |
-            echo "Start"
+            echo "Start build"
             node --version
             npm -v
             npm install
-            npm test
-      - run: npm run dist
+            npm run dist
 
   test:
     docker:
@@ -28,6 +27,7 @@ jobs:
       - run:
           name: Test
           command: |
+            npm install
             npm test
 
 workflows:
