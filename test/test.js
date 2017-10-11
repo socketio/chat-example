@@ -28,8 +28,8 @@ describe('Build binary with pkg', function(done) {
   this.timeout(60000)
   before(function(done) {
     exec('npm run dist', (err, stdout, stderr) => {
-      assert.equal(err, null, 'Binary build failed')
-      assert.equal(stderr, '', 'stderr exists from pkg')
+      assert.equal(err, null, `Binary build failed: ${err}`)
+      assert.equal(stderr, '', `stderr exists from pkg: ${stderr}`)
       done()
     })
   })
