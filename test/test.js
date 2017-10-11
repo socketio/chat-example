@@ -4,7 +4,7 @@ const assert = require('chai').assert
 const fs = require('fs')
 const exec = require('child_process').exec
 //const spawn = require('child_process').spawn
-//const os = require('os')
+const osPlatform = require('os').platform()
 
 
 /*function getOS() {
@@ -47,20 +47,25 @@ describe('Build binary with pkg', function(done) {
 })
 describe('Build installer with wix', function(done) {
   this.timeout(60000)
-  before(function(done) {
-    exec('npm run wix', (err, stdout, stderr) => {
-      assert.equal(err, null, 'Installer build failed')
-      assert.equal(stderr, '', 'stderr exists from pkg')
-      done()
+  if (osPlatform == 'win32') {
+    before(function(done) {
+      exec('npm run wix', (err, stdout, stderr) => {
+        assert.equal(err, null, 'Installer build failed')
+        assert.equal(stderr, '', 'stderr exists from pkg')
+        done()
+      })
     })
-  })
 
-  //let targets = ['linux', 'macos', 'win.exe']
-  it(`Build .msi`, function(done) {
-    let msiFile = `./Wix/chatAppInstaller.msi`
-    fs.stat(msiFile, function(err, stats) {
-      assert.equal(err, null, `.msi installer not generated, ${msiFile}`)
-      done()
+    //let targets = ['linux', 'macos', 'win.exe']
+    it(`Build .msi`, function(done) {
+      let msiFile = `./Wix/chatAppInstaller.msi`
+      fs.stat(msiFile, function(err, stats) {
+        assert.equal(err, null, `.msi installer not generated, ${msiFile}`)
+        done()
+      })
     })
-  })
+  }
+  else {
+    console.log(`Wix tests not applicable to ${osPlatform}`)
+  }
 })
