@@ -1,0 +1,46 @@
+version: AppVeyor-{build}
+image: Visual Studio 2017
+
+only_commits:
+  message: /build/
+branches:
+  only:
+    - master
+
+# Test against the latest version of this Node.js version
+environment:
+  nodejs_version: "6"
+
+platform:
+  - x64
+
+# Install scripts. (runs after repo cloning)
+install:
+  # Get the latest stable version of Node.js or io.js
+  - ps: Install-Product node $env:nodejs_version $env:platform
+  # install modules
+  - npm install
+  - set path=c:\Program Files (x86)\WiX Toolset v3.11\bin;%path%
+
+# Post-install test scripts.
+test_script:
+  # Output useful info for debugging.
+  - node --version
+  - npm --version
+  # run tests
+  - npm test
+
+after_test:
+  - npm run dist
+  - npm run wix
+
+# Don't actually build.
+build: off
+
+artifacts:
+- path: bin
+- path: Wix\*.msi
+
+notifications:
+  - provider: Slack
+    incoming_webhook: https://hooks.slack.com/services/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

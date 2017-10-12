@@ -4,9 +4,25 @@
   "description": "my first socket.io app",
   "dependencies": {
     "express": "^4.15.2",
+    "npx": "^9.6.0",
     "socket.io": "^1.7.3"
   },
   "scripts": {
-    "start": "node index.js"
+    "lh": "open http://localhost:3000 & open http://localhost:3000",
+    "test": "mocha test",
+    "start": "node index.js & npm run lh",
+    "dist": "pkg . --targets node6-linux,node6-macos,node6-win --out-path ./bin/",
+    "wix": "cd Wix && candle.exe chatAppInstaller.wxs && light.exe -ext WixUIExtension chatAppInstaller.wixobj"
+  },
+  "bin": {
+    "chat-example": "index.js"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "david": "^11.0.0",
+    "depcheck": "^0.6.7",
+    "mocha": "^3.4.2",
+    "pkg": "^4.2.4",
+    "standard": "^10.0.2"
   }
 }

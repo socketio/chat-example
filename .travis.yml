@@ -1,0 +1,19 @@
+dist: trusty
+sudo: required
+
+language: node_js
+
+node_js:
+  - "6"
+
+install:
+ - npm install
+
+script:
+ - npm test
+ - npm run dist
+
+notifications:
+  slack: biobright:FAfxVRfqf7r70Hw3P4pzfVIn
+  email:
+    - ranganath@biobright.org
