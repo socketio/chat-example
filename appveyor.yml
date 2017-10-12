@@ -1,18 +1,18 @@
-version: 0.0.{build}
+version: AppVeyor-{build}
 image: Visual Studio 2017
 
-#only_commits:
-#  message: /build/
+only_commits:
+  message: /build/
+branches:
+  only:
+    - master
+
 # Test against the latest version of this Node.js version
 environment:
   nodejs_version: "6"
 
 platform:
   - x64
-
-#cache:
-#  - node_modules
-#  - '%APPDATA%\npm-cache'
 
 # Install scripts. (runs after repo cloning)
 install:
