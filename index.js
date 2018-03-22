@@ -10,7 +10,7 @@ const networks = require('./utils/networks');
 
 var showChat = function(res, userData) {
     networks.handleUser(userData, userData.groups);
-    res.render('chat');
+    res.render('chat', {'user': userData});
 };
 
 hbs.registerPartials(__dirname + '/views/partials');
@@ -22,7 +22,7 @@ app.use(express.static(path.join(__dirname, '/images')));
 app.set('view options', { layout: 'layout' });
 
 app.get('/', function(req, res){
-  res.render('home');
+    res.render('home');
 });
 
 app.get('/login', function(req, res){

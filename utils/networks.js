@@ -1,5 +1,4 @@
 var networks = {};
-var members = [];
 
 var networkHandler = {
     handleUser: function (userData, networks) {
@@ -9,10 +8,14 @@ var networkHandler = {
     },
     join: function (userData, network) {
         if (typeof networks['id'] == 'undefined') {
+            network.members = [];
             networks[networks.id] = network;
         }
-        members.push(userData);
+        network.members.push(userData);
     },
+    list: function() {
+        return networks;
+    }
 };
 
 module.exports = networkHandler;
