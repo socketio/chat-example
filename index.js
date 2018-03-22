@@ -5,6 +5,10 @@ const io = require('socket.io')(http);
 const server = require('./config/server')
 const path = require('path');
 const hbs = require('hbs');
+const gdc = require('./utils/gdc');
+
+var showChat = function(res, userData) {
+};
 
 hbs.registerPartials(__dirname + '/views/partials');
 
@@ -23,7 +27,11 @@ app.get('/chat', function(req, res){
 });
 
 app.get('/login', function(req, res){
-    res.send('todo');
+    if (typeof req.query.code == 'undefined') {
+        res.redirect(gdc.getRedirectUrl());
+        return;
+    }
+    var token = gdc.getToken(req.query.code, res, showChat);
 });
 
 io.on('connection', function(socket){

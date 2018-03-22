@@ -1,0 +1,5 @@
+module.exports = {
+    client_id: 'CHANGE_THIS',
+    client_secret: 'CHANGE_THIS',
+    callback_url: 'CHANGE_THIS'
+}

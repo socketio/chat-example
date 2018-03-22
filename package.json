@@ -1,13 +1,25 @@
 {
-  "name": "socket-chat-example",
+  "name": "gdc-chat",
   "version": "0.0.1",
-  "description": "my first socket.io app",
+  "description": "A simple chat using the GDC SSO",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gpenverne/gdc-chat"
+  },
+  "author": "gpenverne",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/gpenverne/gdc-chat/issues"
+  },
+  "homepage": "https://github.com/gpenverne/gdc-chat#readme",
   "dependencies": {
     "express": "^4.15.2",
     "hbs": "^4.0.1",
+    "request": "^2.85.0",
     "socket.io": "^1.7.3"
   },
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "postinstall": "node scripts/install.js"
   }
 }
