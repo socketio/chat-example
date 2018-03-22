@@ -13,7 +13,10 @@ var members = {};
 var showChat = function(res, userData) {
     networks.handleUser(userData, userData.groups);
     members[userData.uuid] = userData;
-    res.render('chat', {'currentUser': userData});
+    res.render('chat', {
+        'currentUser': userData,
+        'networks': networks.list(userData)
+    });
 };
 
 hbs.registerPartials(__dirname + '/views/partials');

@@ -1,8 +1,8 @@
 var networks = {};
 
 var networkHandler = {
-    handleUser: function (userData, networks) {
-        networks.forEach(function(network){
+    handleUser: function (userData) {
+        userData.groups.forEach(function(network){
             networkHandler.join(userData, network);
         });
     },
@@ -13,7 +13,7 @@ var networkHandler = {
         }
         network.members.push(userData);
     },
-    list: function() {
+    list: function(userData) {
         return networks;
     }
 };
