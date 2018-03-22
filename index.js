@@ -6,8 +6,11 @@ const server = require('./config/server')
 const path = require('path');
 const hbs = require('hbs');
 const gdc = require('./utils/gdc');
+const networks = require('./utils/networks');
 
 var showChat = function(res, userData) {
+    networks.handleUser(userData, userData.groups);
+    res.render('chat');
 };
 
 hbs.registerPartials(__dirname + '/views/partials');
@@ -20,10 +23,6 @@ app.set('view options', { layout: 'layout' });
 
 app.get('/', function(req, res){
   res.render('home');
-});
-
-app.get('/chat', function(req, res){
-  res.render('chat');
 });
 
 app.get('/login', function(req, res){
