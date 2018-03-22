@@ -1,4 +1,14 @@
-<ul id="messages"></ul>
-<form action="">
-    <input placeholder="{{user.firstName}}" id="m" autocomplete="off" /><button>Send</button>
-</form>
+<script>var currentUser={{userData}}</script>
+    <div class="row">
+        <ul id="messages" class="col-md-10"></ul>
+        <ul id="my-networks" class="col-md-2">
+            {{#each networks}}
+                <li>{{name}}</li>
+            {{/each}}
+        </ul>
+    </div>
+    <form action="">
+        <input placeholder="{{currentUser.firstName}}" id="m" autocomplete="off" /><button>Send</button>
+    </form>
+    </div>
+</div>
