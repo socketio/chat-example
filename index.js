@@ -1,10 +1,21 @@
-var app = require('express')();
-var http = require('http').Server(app);
-var io = require('socket.io')(http);
-var port = process.env.PORT || 3000;
+const express = require('express');
+const app = express();
+const http = require('http').Server(app);
+const io = require('socket.io')(http);
+const server = require('./config/server')
+const path = require('path');
+
+app.set('view engine', 'html');
+app.engine('html', require('hbs').__express);
+app.use(express.static(path.join(__dirname, '/assets')));
+app.set('view options', { layout: 'layout' });
 
 app.get('/', function(req, res){
-  res.sendFile(__dirname + '/index.html');
+  res.render('home');
+});
+
+app.get('/chat', function(req, res){
+  res.render('chat');
 });
 
 io.on('connection', function(socket){
@@ -13,6 +24,6 @@ io.on('connection', function(socket){
   });
 });
 
-http.listen(port, function(){
-  console.log('listening on *:' + port);
+http.listen(server.port, function(){
+  console.log('Listening on *:' + server.port);
 });
