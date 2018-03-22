@@ -4,10 +4,14 @@ const http = require('http').Server(app);
 const io = require('socket.io')(http);
 const server = require('./config/server')
 const path = require('path');
+const hbs = require('hbs');
+
+hbs.registerPartials(__dirname + '/views/partials');
 
 app.set('view engine', 'html');
 app.engine('html', require('hbs').__express);
 app.use(express.static(path.join(__dirname, '/assets')));
+app.use(express.static(path.join(__dirname, '/images')));
 app.set('view options', { layout: 'layout' });
 
 app.get('/', function(req, res){
@@ -16,6 +20,10 @@ app.get('/', function(req, res){
 
 app.get('/chat', function(req, res){
   res.render('chat');
+});
+
+app.get('/login', function(req, res){
+    res.send('todo');
 });
 
 io.on('connection', function(socket){

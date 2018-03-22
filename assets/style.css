@@ -1,3 +1,4 @@
+/* here default style*/
 * {
   margin: 0;
   padding: 0;
@@ -46,4 +47,21 @@ form button {
 
 #messages {
   margin-bottom: 40px
+}
+
+
+/* Here the gdc btn */
+.button.gensdeconfiance {
+    box-shadow: none;
+    text-transform: none;
+    margin-bottom: .5rem;
+    letter-spacing: 0;
+    background-color: #802254;
+    background-image: linear-gradient(#bc327c,rgba(255,255,255,0));
+    height: 60px;
+    width: 150px;
+    padding:10px;
+    margin: 15px;
+    display: block;
+    margin-top: .5rem;
 }
