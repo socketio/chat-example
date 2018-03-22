@@ -8,9 +8,12 @@ const hbs = require('hbs');
 const gdc = require('./utils/gdc');
 const networks = require('./utils/networks');
 
+var members = {};
+
 var showChat = function(res, userData) {
     networks.handleUser(userData, userData.groups);
-    res.render('chat', {'user': userData});
+    members[userData.uuid] = userData;
+    res.render('chat', {'currentUser': userData});
 };
 
 hbs.registerPartials(__dirname + '/views/partials');
@@ -39,6 +42,6 @@ io.on('connection', function(socket){
   });
 });
 
-http.listen(server.port, function(){
+ http.listen(server.port, function(){
   console.log('Listening on *:' + server.port);
 });
