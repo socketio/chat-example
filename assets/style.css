@@ -49,8 +49,6 @@ form button {
   margin-bottom: 40px
 }
 
-
-/* Here the gdc btn */
 .button.gensdeconfiance {
     box-shadow: none;
     text-transform: none;
@@ -64,4 +62,9 @@ form button {
     margin: 15px;
     display: block;
     margin-top: .5rem;
+}
+
+a.username {
+    font-weight: bold;
+    text-decoration: underline;
 }

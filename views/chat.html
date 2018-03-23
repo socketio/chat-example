@@ -8,7 +8,12 @@
         </ul>
     </div>
     <form action="">
-        <input placeholder="{{currentUser.firstName}}" id="m" autocomplete="off" /><button>Send</button>
+        <input placeholder="{{currentUser.userName}}" id="m" autocomplete="off" /><button>Send</button>
     </form>
     </div>
 </div>
+<script>
+    var currentUser = '{{currentUser.uuid}}';
+    var currentVanity = '{{currentUser.vanity}}';
+    var userName = '{{currentUser.fullName}}';
+</script>
