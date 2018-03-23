@@ -1,17 +1,17 @@
-<script>var currentUser={{userData}}</script>
-    <div class="row">
-        <ul id="messages" class="col-md-10"></ul>
-        <ul id="my-networks" class="col-md-2">
-            {{#each networks}}
-                <li>{{name}}</li>
-            {{/each}}
-        </ul>
-    </div>
-    <form action="">
-        <input placeholder="{{currentUser.userName}}" id="m" autocomplete="off" /><button>Send</button>
-    </form>
-    </div>
+<div class="row">
+    <ul id="messages" class="col-md-10"></ul>
+    <ul id="my-networks" class="col-md-2">
+        {{#each networks}}
+            <li>{{name}}</li>
+        {{/each}}
+    </ul>
 </div>
+
+<form action="">
+    <input placeholder="{{currentUser.userName}}" id="m" autocomplete="off" />
+    <button>Send</button>
+</form>
+
 <script>
     var currentUser = '{{currentUser.uuid}}';
     var currentVanity = '{{currentUser.vanity}}';

@@ -9,6 +9,9 @@ const gdc = require('./utils/gdc');
 const networks = require('./utils/networks');
 const session = require('express-session');
 const uuidv4 = require('uuid/v4');
+const FileStore = require('session-file-store')(session);
+
+app.use(require('morgan')('dev'));
 
 var members = {};
 
@@ -17,21 +20,18 @@ app.use(session({
   secret: '_scrt_'+gdc.client_secret,
   resave: false,
   saveUninitialized: true,
-  cookie: { secure: true },
-  genid: function(req) {
-    return uuidv4()
-  }
+  store: new FileStore()
 }))
 var showChat = function(res, req, userData) {
     userData.uuid = uuidv4();
     networks.handleUser(userData);
     userData.fullName = userData.firstName+' '+userData.lastName;
     members[userData.vanity] = userData.uuid;
+    req.session.token = userData.token;
     res.render('chat', {
         'currentUser': userData,
         'networks': networks.list(userData)
     });
-    req.session.token = userData.token;
 };
 
 hbs.registerPartials(__dirname + '/views/partials');
@@ -52,7 +52,8 @@ app.get('/login', function(req, res){
         return;
     }
     if (req.session.token) {
-        gdc.getUserInfo(req, req.session.token);
+        console.log('logged using sessions');
+        gdc.getUserInfo(req.session.token, res, req, showChat);
     } else {
         gdc.getToken(req.query.code, res, req, showChat);
     }
@@ -60,6 +61,7 @@ app.get('/login', function(req, res){
 
 io.on('connection', function(socket){
   socket.on('send message', function(msg){
+      console.log(msg);
     if (typeof members[msg.uservanity] == 'undefined' || members[msg.uservanity] != msg.user) {
       return false;
     }

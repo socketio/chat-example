@@ -21,9 +21,8 @@ var GDC = {
             'Authorization': 'Bearer '+ token,
         }}, function(error, response, body){
             var userData = JSON.parse(body);
-            userData.uuid = uuidv4();
             userData.token = token;
-            callback(res, req, JSON.parse(body));
+            callback(res, req, userData);
         })
     }
 };
