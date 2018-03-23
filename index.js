@@ -10,11 +10,11 @@ const networks = require('./utils/networks');
 const session = require('express-session');
 const uuidv4 = require('uuid/v4');
 const FileStore = require('session-file-store')(session);
+const rooms = require('./utils/rooms');
 
 app.use(require('morgan')('dev'));
 
 var members = {};
-
 app.set('trust proxy', 1) // trust first proxy
 app.use(session({
   secret: '_scrt_'+gdc.client_secret,
@@ -26,11 +26,13 @@ var showChat = function(res, req, userData) {
     userData.uuid = uuidv4();
     networks.handleUser(userData);
     userData.fullName = userData.firstName+' '+userData.lastName;
-    members[userData.vanity] = userData.uuid;
+    userData.room = rooms.getDefaultRoom();
+    members[userData.vanity] = userData;
     req.session.token = userData.token;
     res.render('chat', {
         'currentUser': userData,
-        'networks': networks.list(userData)
+        'networks': networks.list(userData),
+        'rooms': rooms
     });
 };
 
@@ -60,16 +62,40 @@ app.get('/login', function(req, res){
 });
 
 io.on('connection', function(socket){
-  socket.on('send message', function(msg){
-      console.log(msg);
-    if (typeof members[msg.uservanity] == 'undefined' || members[msg.uservanity] != msg.user) {
-      return false;
-    }
-    io.emit('receive message', {
-        message: msg.message,
-        username: msg.username,
-        uservanity: msg.uservanity
+    socket.join(rooms.getDefaultRoom());
+    var msgs = rooms.read('all');
+    msgs.forEach(function(msg){
+        socket.emit('receive message', msg);
     });
+    socket.on('join room', function(data){
+        console.log(data);
+        var user = members[data.user.uservanity];
+        if (user.room) {
+            rooms.leave(user.room);
+            socket.leave(user.room);
+        }
+        rooms.join(data.room);
+        socket.join(data.room);
+        members[data.user.uservanity].room = data.room;
+        console.log(data.user.uservanity+' joined room '+data.room);
+        var msgs = rooms.read(data.room);
+        msgs.forEach(function(msg){
+            socket.emit('receive message', msg);
+        });
+    });
+    socket.on('send message', function(msg){
+        console.log(msg);
+      if (typeof members[msg.uservanity] == 'undefined' || members[msg.uservanity].uuid != msg.user) {
+          console.log('Invalid userdata');
+          return false;
+      }
+      io.to(msg.room).emit('receive message', {
+          message: msg.message,
+          username: msg.username,
+          uservanity: msg.uservanity,
+          room: msg.room
+      });
+      rooms.write(msg);
   });
 });
 

@@ -68,3 +68,13 @@ a.username {
     font-weight: bold;
     text-decoration: underline;
 }
+
+#networks li {
+    cursor: pointer;
+    list-style: none;
+    color: #ccc;
+}
+#networks li.current {
+    font-weight: bold;
+    color: #333;
+}
