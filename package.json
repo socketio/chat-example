@@ -3,10 +3,11 @@
   "version": "0.0.1",
   "description": "my first socket.io app",
   "dependencies": {
-    "express": "^4.15.2",
-    "socket.io": "^1.7.3"
+    "express": "^4.16.4",
+    "socket.io": "^2.2.0"
   },
   "scripts": {
-    "start": "node index.js"
-  }
+    "start": "node --experimental-modules server.js"
+  },
+  "type": "module"
 }
