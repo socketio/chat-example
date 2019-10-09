@@ -1,5 +1,11 @@
 # chat-example
 
+As usual run command:
+npm install
+
+To start run command:
+node index
+
 This is the source code for a very simple chat example used for
 the [Getting Started](http://socket.io/get-started/chat/) guide
 of the Socket.IO website.
