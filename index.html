@@ -2,6 +2,8 @@
 <html>
   <head>
     <title>Socket.IO chat</title>
+    <link rel="stylesheet" type="text/css" href="/css/main.css">
+    <link href="https://fonts.googleapis.com/css?family=Nunito&display=swap" rel="stylesheet">
     <style>
       * { margin: 0; padding: 0; box-sizing: border-box; }
       body { font: 13px Helvetica, Arial; }
@@ -12,25 +14,19 @@
       #messages li { padding: 5px 10px; }
       #messages li:nth-child(odd) { background: #eee; }
       #messages { margin-bottom: 40px }
-      .player1{
-        width: 50px;
-        height: 20px;
-        background-color: black;
-        position: absolute;
-        right: 0;
-        top: 200px;
-      }
-      .player2{
-        width: 50px;
-        height: 20px;
-        background-color: red;
-        position: absolute;
-        right: 0;
-        top: 250px;
-      }
+
     </style>
   </head>
   <body>
+  <div class="menu">
+    <h1>Bienvenue sur <span>CRYRUNNER</span></h1>
+    <div class="pseudo">
+      <label for="">Entre ton pseudo : </label>
+      <input type="text">
+      <button>C'est parti !</button>
+    </div>
+
+  </div>
   <div class="player1"></div>
   <div class="player2"></div>
     <ul id="messages"></ul>
