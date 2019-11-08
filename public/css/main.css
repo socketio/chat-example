@@ -26,9 +26,27 @@ body{
     bottom: -179px;
 }
 
+.round {
+    transition: all 1.5s ease;
+}
+
+.overlay-menu{
+    position: absolute;
+    display: flex;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    opacity: 0.7;
+    background-color: black;
+    visibility: visible;
+    transition: all 1.5s ease;
+}
+
 .menu{
     position: absolute;
-    display: none;
+    display: flex;
     top: 0;
     left: 0;
     width: 100vw;
@@ -37,6 +55,14 @@ body{
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    opacity: 1;
+    visibility: visible;
+    transition: all 1.5s ease;
+}
+
+.hidden {
+    opacity: 0;
+    visibility: hidden;
 }
 
 
@@ -102,4 +128,8 @@ body{
     font-size: 40px;
     color: white;
     top: 50px;
+}
+
+.startParty {
+
 }

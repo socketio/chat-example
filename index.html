@@ -4,135 +4,27 @@
     <title>Socket.IO chat</title>
     <link rel="stylesheet" type="text/css" href="/css/main.css">
     <link href="https://fonts.googleapis.com/css?family=Nunito&display=swap" rel="stylesheet">
-    <style>
-      * { margin: 0; padding: 0; box-sizing: border-box; }
-      body { font: 13px Helvetica, Arial; }
-      form { background: #000; padding: 3px; position: fixed; bottom: 0; width: 100%; }
-      form input { border: 0; padding: 10px; width: 90%; margin-right: .5%; }
-      form button { width: 9%; background: rgb(130, 224, 255); border: none; padding: 10px; }
-      #messages { list-style-type: none; margin: 0; padding: 0; }
-      #messages li { padding: 5px 10px; }
-      #messages li:nth-child(odd) { background: #eee; }
-      #messages { margin-bottom: 40px }
-
-    </style>
   </head>
   <body>
-  <h1 class="gameTitle">CRYSPACER</h1>
 
   <audio src="/sound/son.mp3" ></audio>
   <canvas class="round"></canvas>
+  <div class="overlay-menu"></div>
   <div class="menu">
       <h1>Bienvenue sur <span>CRYSPACER</span></h1>
       <div class="pseudo">
         <label for="">Entre ton pseudo : </label>
         <input type="text">
-        <button>C'est parti !</button>
+        <button class="startParty">C'est parti !</button>
       </div>
   </div>
   <div class="player1"></div>
   <div class="player2"></div>
-  <script src="/js/menu.js"></script>
-      <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+
+    <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
-    <script >
-      $(function () {
-        var socket = io();
-        $('form').submit(function(){
-          socket.emit('chat message', $('#m').val());
-          $('#m').val('');
-          return false;
-        });
-        socket.on('chat message', function(msg){
-          $('#messages').append($('<li>').text(msg));
-          window.scrollTo(0, document.body.scrollHeight);
-        });
+    <script src="/js/menu.js"></script>
+    <script src="/js/client.js"></script>
 
-        $('.player1').click(function(){
-          socket.emit('sound received', 'rien');
-          return false;
-        });
-
-        var bufferSize = 256;
-
-        var frequence = 0;
-        var amplitude = 0;
-        var maxAmplitude = 0;
-
-        var sum = 0;
-        var count = 0;
-        var avg = 0;
-
-        const player1 = document.querySelector('.player1');
-        const player2 = document.querySelector('.player2');
-
-        var move= 0;
-
-
-        var recorder;
-        navigator.mediaDevices.getUserMedia({ audio: true, video: false })
-                .then(function(stream) {
-                  window.AudioContext = window.AudioContext || window.webkitAudioContext;
-                  var context = new AudioContext();
-                  var mediaStream = context.createMediaStreamSource(stream);
-                  var numberOfInputChannels = 2;
-                  var numberOfOutputChannels = 2;
-                  if (context.createScriptProcessor) {
-                    recorder = context.createScriptProcessor(bufferSize, numberOfInputChannels, numberOfOutputChannels);
-                  } else {
-                    recorder = context.createJavaScriptNode(bufferSize, numberOfInputChannels, numberOfOutputChannels);
-                  }
-
-                  recorder.onaudioprocess = function (e) {
-                    var chanl = e.inputBuffer.getChannelData(0);
-                    var chanr = e.inputBuffer.getChannelData(1);
-                    amplitude = 0;
-                    frequence = 0;
-                    var mem = 0;
-                    var l = 0;
-                    var r = 0;
-                    for (var i in chanl) {
-                      l = chanl[i];
-                      r = chanr[i];
-                      amplitude += Math.abs(l)+Math.abs(r);
-                      if ((l<0 && mem>0) || (l>0 && mem<0))
-                        frequence++;
-                      mem = l;
-                    }
-                    /*  if (maxAmplitude<amplitude){
-                          maxAmplitude = amplitude;
-                      }*/
-
-                    sum += frequence;
-                    count++;
-
-                    if (count == 10){
-                      avg = sum/count;
-                      count = 0;
-                      sum = 0;
-                    }
-
-                    if (avg < Math.max(4) && avg > Math.min(0)) {
-                      move+=1;
-                      player1.style.transform = 'translateY(-' + move+ 'px)';
-                      player2.style.transform = 'translateY(-' + move+ 'px)';
-                    }
-                  };
-
-                  mediaStream.connect(recorder);
-                  recorder.connect(context.destination);
-
-
-                }).catch(function(err) {
-          console.log("Stream not OK");
-
-        });
-
-        socket.on('sound received', function(){
-          $(".player2").css("background-color", "yellow");
-        });
-
-      });
-    </script>
   </body>
 </html>

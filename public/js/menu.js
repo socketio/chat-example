@@ -10,6 +10,7 @@ let frequencyData = new Uint8Array(analyser.frequencyBinCount);
 
 let body = document.querySelector('body');
 let canvas = document.querySelector("canvas");
+let startParty = document.querySelector(".startParty");
 let c = canvas.getContext("2d");
 
 let rect = body.getBoundingClientRect();
@@ -33,6 +34,16 @@ let p = {
     vy: 0,
     a: 0,
 };
+
+function startTheParty() {
+    startParty.addEventListener("click", function() {
+        document.querySelector('.menu').classList.add('hidden');
+        document.querySelector('.overlay-menu').classList.add('hidden');
+        document.querySelector('.round').classList.add('hidden');
+
+    });
+}
+startTheParty();
 
 
 function draw()  {
