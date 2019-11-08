@@ -1,33 +1,22 @@
-.player1{
-    width: 50px;
-    height: 20px;
-    background-color: black;
-    position: absolute;
-    right: 0;
-    top: 200px;
-}
-.player2{
-    width: 50px;
-    height: 20px;
-    background-color: red;
-    position: absolute;
-    right: 0;
-    top: 250px;
+body{
+    height: 100vh;
+    background-color: rgba(0,0,0,.9);
+    overflow: hidden;
 }
 
 .menu{
     position: absolute;
     top: 0;
     left: 0;
-    bottom: 0;
-    right: 0;
-    background-color: rgba(0,0,0,.9);
+    width: 100vw;
+    height: 100vh;
     z-index: 9999;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
 }
+
 
 .pseudo{
     display: flex;
@@ -45,7 +34,7 @@
 .menu h1{
     font-weight: lighter;
     text-transform: uppercase;
-    font-size: 3em;
+    font-size: 2.5em;
 }
 
 .menu h1 > span{
@@ -61,7 +50,7 @@
 .pseudo input{
     margin-bottom: 35px;
     padding: 20px 5px;
-    font-size: 1.5em;
+    font-size: 1em;
     color: rgba(0,0,0,.9);
 }
 
@@ -70,7 +59,7 @@
     border: 7px solid white;
     padding: 10px 30px;
     text-transform: uppercase;
-    font-size: 2em;
+    font-size: 1.5em;
     font-weight: 900;
     transition: 0.8s all;
     cursor: pointer;

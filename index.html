@@ -18,23 +18,21 @@
     </style>
   </head>
   <body>
-  <div class="menu">
-    <h1>Bienvenue sur <span>CRYRUNNER</span></h1>
-    <div class="pseudo">
-      <label for="">Entre ton pseudo : </label>
-      <input type="text">
-      <button>C'est parti !</button>
-    </div>
 
+  <audio src="/sound/son.mp3" ></audio>
+  <canvas class="round"></canvas>
+  <div class="menu">
+      <h1>Bienvenue sur <span>CRYSPACER</span></h1>
+      <div class="pseudo">
+        <label for="">Entre ton pseudo : </label>
+        <input type="text">
+        <button>C'est parti !</button>
+      </div>
   </div>
   <div class="player1"></div>
   <div class="player2"></div>
-    <ul id="messages"></ul>
-    <form action="">
-      <input id="m" autocomplete="off" /><button>Send</button>
-    </form>
-
-    <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
+  <script src="/js/menu.js"></script>
+      <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
     <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
     <script >
       $(function () {
@@ -107,24 +105,6 @@
                     if ((l<0 && mem>0) || (l>0 && mem<0))
                       frequence++;
                     mem = l;
-                  }
-                  /*  if (maxAmplitude<amplitude){
-                        maxAmplitude = amplitude;
-                    }*/
-
-                  sum += frequence;
-                  count++;
-
-                  if (count == 10){
-                    avg = sum/count;
-                    count = 0;
-                    sum = 0;
-                  }
-
-                  if (avg < Math.max(10) && avg > Math.min(0)) {
-                    move+=2;
-                    player1.style.transform = 'translateX(-' + move+ 'px)';
-                    player2.style.transform = 'translateX(-' + move+ 'px)';
                   }
                 };
 
