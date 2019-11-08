@@ -1,17 +1,39 @@
+
 body{
     height: 100vh;
     background-color: rgba(0,0,0,.9);
     overflow: hidden;
+    background-image: url("../images/background.jpg");
+    background-size: cover;
+}
+
+.player1{
+    width: 61px;
+    height: 179px;
+    background-image: url("../images/rocket1.svg");
+    background-size: cover;
+    position: absolute;
+    right: 30%;
+    bottom: -179px;
+}
+.player2{
+    width: 61px;
+    height: 179px;
+    background-image: url("../images/rocket2.svg");
+    background-size: cover;
+    position: absolute;
+    left: 30%;
+    bottom: -179px;
 }
 
 .menu{
     position: absolute;
+    display: none;
     top: 0;
     left: 0;
     width: 100vw;
     height: 100vh;
     z-index: 9999;
-    display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
@@ -69,4 +91,15 @@ body{
     background-color: white;
     color: rgba(0,0,0,.9);
     transition: 0.4s all;
+}
+
+.gameTitle {
+    font-family: 'Nunito', sans-serif;
+    font-weight: bold;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 40px;
+    color: white;
+    top: 50px;
 }

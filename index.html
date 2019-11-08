@@ -18,6 +18,7 @@
     </style>
   </head>
   <body>
+  <h1 class="gameTitle">CRYSPACER</h1>
 
   <audio src="/sound/son.mp3" ></audio>
   <canvas class="round"></canvas>
@@ -111,10 +112,10 @@
                       sum = 0;
                     }
 
-                    if (avg < Math.max(10) && avg > Math.min(0)) {
+                    if (avg < Math.max(4) && avg > Math.min(0)) {
                       move+=1;
-                      player1.style.transform = 'translateX(-' + move+ 'px)';
-                      player2.style.transform = 'translateX(-' + move+ 'px)';
+                      player1.style.transform = 'translateY(-' + move+ 'px)';
+                      player2.style.transform = 'translateY(-' + move+ 'px)';
                     }
                   };
 

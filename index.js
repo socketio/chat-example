@@ -3,6 +3,7 @@ var app = express();
 app.use('/css', express.static(__dirname + '/public/css'));
 app.use('/js', express.static(__dirname + '/public/js'));
 app.use('/sound', express.static(__dirname + '/public/sound'));
+app.use('/images', express.static(__dirname + '/public/images'));
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var port = process.env.PORT || 3000;
@@ -12,11 +13,10 @@ app.get('/', function(req, res){
 });
 
 io.on('connection', function(socket){
-  socket.on('chat message', function(msg){
-    io.emit('chat message', msg);
-  });
+  console.log('A user connected!');
 
   socket.on('sound received', function(frequence){
+    console.log('sound receiveeed');
     io.emit('sound received', frequence);
   });
 });
