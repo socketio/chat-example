@@ -10,17 +10,10 @@ $(function () {
         window.scrollTo(0, document.body.scrollHeight);
     });
 
-    $('.player1').click(function(){
-        socket.emit('sound received', 'rien');
-        return false;
-    });
-
     var bufferSize = 256;
-
     var frequence = 0;
     var amplitude = 0;
     var maxAmplitude = 0;
-
     var sum = 0;
     var count = 0;
     var avg = 0;
@@ -30,8 +23,8 @@ $(function () {
 
     var move= 0;
 
-
     var recorder;
+
     navigator.mediaDevices.getUserMedia({ audio: true, video: false })
         .then(function(stream) {
             window.AudioContext = window.AudioContext || window.webkitAudioContext;
@@ -46,6 +39,7 @@ $(function () {
             }
 
             recorder.onaudioprocess = function (e) {
+                socket.emit('sound received', frequence);
                 var chanl = e.inputBuffer.getChannelData(0);
                 var chanr = e.inputBuffer.getChannelData(1);
                 amplitude = 0;
@@ -73,12 +67,6 @@ $(function () {
                     count = 0;
                     sum = 0;
                 }
-
-                if (avg < Math.max(4) && avg > Math.min(0)) {
-                    move+=1;
-                    player1.style.transform = 'translateY(-' + move+ 'px)';
-                    player2.style.transform = 'translateY(-' + move+ 'px)';
-                }
             };
 
             mediaStream.connect(recorder);
@@ -91,7 +79,11 @@ $(function () {
     });
 
     socket.on('sound received', function(){
-        $(".player2").css("background-color", "yellow");
+        if (avg < Math.max(4) && avg > Math.min(0)) {
+            move+=1;
+            player1.style.transform = 'translateY(-' + move+ 'px)';
+            player2.style.transform = 'translateY(-' + move+ 'px)';
+        }
     });
 
 });
