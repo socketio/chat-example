@@ -16,8 +16,8 @@ io.on('connection', function(socket){
     io.emit('chat message', msg);
   });
 
-  socket.on('sound received', function(e){
-    io.emit('sound received', e);
+  socket.on('sound received', function(frequence){
+    io.emit('sound received', frequence);
   });
 });
 
