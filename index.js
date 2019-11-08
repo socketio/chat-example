@@ -7,9 +7,6 @@ app.use('/images', express.static(__dirname + '/public/images'));
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var port = process.env.PORT || 3000;
-var Game = require('./js/game');
-
-
 
 app.get('/', function(req, res){
   res.sendFile(__dirname + '/index.html');
