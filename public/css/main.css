@@ -32,6 +32,8 @@
 .pseudo{
     display: flex;
     flex-direction: column;
+    margin-top: 50px;
+    width: 20%;
 }
 
 
@@ -50,7 +52,32 @@
     font-weight: 900;
 }
 
-.menu label{
+.pseudo label{
     font-weight: 900;
     text-transform: uppercase;
+    margin-bottom: 15px;
+}
+
+.pseudo input{
+    margin-bottom: 35px;
+    padding: 20px 5px;
+    font-size: 1.5em;
+    color: rgba(0,0,0,.9);
+}
+
+.pseudo button{
+    background-color: transparent;
+    border: 7px solid white;
+    padding: 10px 30px;
+    text-transform: uppercase;
+    font-size: 2em;
+    font-weight: 900;
+    transition: 0.8s all;
+    cursor: pointer;
+}
+
+.pseudo button:hover{
+    background-color: white;
+    color: rgba(0,0,0,.9);
+    transition: 0.4s all;
 }
