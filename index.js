@@ -7,8 +7,8 @@ app.get('/', function(req, res){
   res.sendFile(__dirname + '/index.html');
 });
 
-app.get("/favicon/drive.ico", (req, res) => {
-  res.sendFile(__dirname + "/favicon.ico");
+app.get("/favicon.ico", (req, res) => {
+  res.sendFile(__dirname + "/favicon/drive.ico");
 });
 
 io.on('connection', function(socket){
