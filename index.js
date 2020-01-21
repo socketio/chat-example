@@ -13,13 +13,14 @@ app.get("/favicon.ico", (req, res) => {
 
 io.on('connection', function(socket){
   socket.on('chat message', function(msg){
-    io.emit('chat message', msg
-            .replace("\\\\", "\f") // temp rm \\
-            .replace("\\r\\n", "\n")
-            .replace("\\r", "\\n")
-            .replace("\\n", "<br/>")
-            .replace("\\t", "\t")
-            .replace("\f", "\\\\"));
+    msg.replace("\\\\", "\f") // temp rm \\
+       .replace("\\r\\n", "\n")
+       .replace("\\r", "\\n")
+       .replace("\\n", "<br/>")
+       .replace("\\t", "\t")
+       .replace("\f", "\\\\")
+       .split("<br/>")
+       .map((m) => {socket.emit("chat message", m);})
   });
 });
 
