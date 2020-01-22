@@ -20,7 +20,7 @@ io.on('connection', function(socket){
        .replace("\\t", "\t")
        .replace("\f", "\\\\")
        .split("<br/>")
-       .map((m) => {socket.emit("chat message", m);})
+       .map((m) => {io.emit("chat message", m);})
   });
 });
 
