@@ -63,6 +63,14 @@ app.get("/favicon.ico", (req, res) => {
   res.sendFile(__dirname + "/favicon/drive.ico");
 });
 
+// static content
+app.get("/index.js", (req, res) => {
+  res.sendFile(__dirname + "/client.js");
+});
+app.get("/styles.css", (req, res) => {
+  res.sendFile(__dirname + "/styles.css");
+});
+
 io.on('connection', function(socket){
   names[socket.id] = socket.id.slice(0,8);
   socket.emit("chat message", `! Welcome, <${names[socket.id]}>`);
