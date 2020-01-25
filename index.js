@@ -86,7 +86,6 @@ io.on('connection', function(socket){
     //whoDisBot.onLeave(socket);
     names[socket.id] = undefined;
   });
-=======
   socket.emit("chat message", `! Welcome, <${socket.id}>`);
   socket.broadcast.emit("chat message", `! <${socket.id}> has joined.`);
   socket.on('chat message', msg => format_msg(msg).map((m) => {io.emit("chat message", `% <${socket.id}> ${m}`);}));
