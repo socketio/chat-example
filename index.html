@@ -20,20 +20,21 @@
       <input id="m" autocomplete="off" /><button>Send</button>
     </form>
     <script src="https://cdn.socket.io/socket.io-1.2.0.js"></script>
-    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
     <script>
-      $(function () {
-        var socket = io();
-        $('form').submit(function(){
-          socket.emit('chat message', $('#m').val());
-          $('#m').val('');
-          return false;
-        });
-        socket.on('chat message', function(msg){
-          $('#messages').append($('<li>').text(msg));
-          window.scrollTo(0, document.body.scrollHeight);
-        });
-      });
+        const socket = io();
+        const form = document.querySelector('form')
+        const text = document.querySelector('#m')
+        form.addEventListener('submit', e => {
+            e.preventDefault()
+            socket.emit('chat message', text.value)
+            text.value = ''
+        })
+        const chat = document.querySelector('#messages')
+        socket.on('chat message', (msg) => {
+            const li = document.createElement('li')
+            li.textContent = msg
+            chat.appendChild(li)
+        })
     </script>
   </body>
 </html>
